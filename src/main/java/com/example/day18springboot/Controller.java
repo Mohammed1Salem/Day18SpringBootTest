@@ -2,9 +2,9 @@ package com.example.day18springboot;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.Collections;
 import java.util.ArrayList;
-
+import java.util.Random;
 @RestController
 
 public class Controller {
@@ -16,25 +16,31 @@ public class Controller {
     public String myAge(){
         return "My age is: 23";
     }
-    @GetMapping("/check/status")
-    public String status(){
-        return "Everything OK!";
+
+
+    @GetMapping("/numbers")
+    public ArrayList<Integer> numbers(){
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(3);
+        numbers.add(7);
+        numbers.add(2);
+        return numbers;
     }
-    @GetMapping("/health")
-    public String health(){
-        return "Server health is up and running";
+    @GetMapping("/numbersSorted")
+    public ArrayList<Integer> numbersSorted( ArrayList<Integer> numbers){
+        Collections.sort(numbers);
+        return numbers;
     }
-    @GetMapping("/names")
-    public ArrayList<String> names(){
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Khaild");
-        names.add("Abdullah");
-        names.add("Turki");
-        return names;
+    @GetMapping("/randomElement")
+    public int randomElement( ArrayList<Integer> numbers){
+        Random radom  = new Random();
+        int element = radom.nextInt(0,numbers.size());
+        return numbers.get(element);
     }
+
+
     @GetMapping("/all")
     public String all(){
-        return myName() +"\n" + myAge() +"\n"  + names() +"\n"  + status() +"\n"  + health();
+        return myName() +"\n" + myAge() +"\nArray of numbers: "  + numbers() +"\nSorted array: "  + numbersSorted(numbers()) +"\nRandom Element of the array: "+ randomElement(numbers());
     }
 }
-
