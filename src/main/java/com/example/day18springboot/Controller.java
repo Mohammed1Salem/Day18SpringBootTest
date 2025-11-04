@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Random;
+
 @RestController
 
 public class Controller {
@@ -37,10 +38,27 @@ public class Controller {
         int element = radom.nextInt(0,numbers.size());
         return numbers.get(element);
     }
+    @GetMapping("/randomNumber")
+    public int randomElement(){
+        Random radom  = new Random();
+        int element = radom.nextInt(0,1000);
+        return element;
+    }
+
+    @GetMapping("/randomNumber")
+    public ArrayList<Integer> randomArray(){
+        ArrayList<Integer> returning = new ArrayList();
+        Random radom  = new Random();
+        int element = radom.nextInt(0,10);
+        for(int i = 0; i < element; i++){
+            returning.add(i);
+        }
+        return returning;
+    }
 
 
     @GetMapping("/all")
     public String all(){
-        return myName() +"\n" + myAge() +"\nArray of numbers: "  + numbers() +"\nSorted array: "  + numbersSorted(numbers()) +"\nRandom Element of the array: "+ randomElement(numbers());
+        return myName() +"\n" + myAge() +"\nArray of numbers: "  + numbers() +"\nSorted array: "  + numbersSorted(numbers()) +"\nRandom Element of the array: "+ randomElement(numbers())+"\nRandom numbers of the array: "+ randomArray();
     }
 }
